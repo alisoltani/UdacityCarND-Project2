@@ -59,6 +59,8 @@ The data set provided was already split up into train.p, valid.p and test.p, and
 
 In the seventh cell, I augment the data set in the cases where there are fewer than 400 images in that class. I chose this number after testing a few different because it seemed to be improve accruacy by enough without taking too much time. I think a better approach in general would be to have the number of images in each class match the actual statistics and frequencies of those traffic signs seen in real-life. The classes which have fewer than 400 images in them are completed to 400 by taking random images from those classes, averaging that sign with the mean calculated before, and then rotating it by a random number of degrees between 0 and 30. I decided against flipping because I felt that keep right and keep left signs would end up having problems.
 
+After augmenting the test data set, the new dataset size is 36889. 
+
 
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -101,9 +103,11 @@ Finally I also added a dynamic rate, such that for every 5 epochs the rate would
 The code for calculating the accuracy of the model is located in the tenth and eleventh cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of 98.1%
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 98.6%
+* validation set accuracy of 93.6% 
+* test set accuracy of 93.0%
+
+In different tests the validation and test accuracies were between 93-95% and 92.8 and 94% respectivly. The results here are from the last test iteration that was uploaded to git, but previous versions had slightly higher accuracy.
 
 I started by adding a convulutional layer to Lenet from the course, but I was not able to achieve any better results. The two convulational layers in Lenet provide some basic pattern recognition, the first one tried to identify basic shapes like lines and circles and the second tries combining them. This gives a good basis to start our neural net and add fully connected layers afterwards. The first max pool was changed to average pool because I thought it would better represent the convolution. 
 
@@ -118,29 +122,68 @@ Finally I decreased the standard deviation to 0.05 due the the normalization I h
 I included 10 German traffic signs I found on the web, and they are shown in the ipynb file. It can be noticed that the resolution of these images is slightly worse than those in the database, making them harder to classify. 
 
 The first image might be difficult to classify because due to the lower resolution, it could easily be interpreted as a stay right/left. This is a case where having color would have helped as the blue in those signs would have contrasted with the red from this sign. 
-The second image might be difficult to classify because 
+The second image might be difficult to classify because children may be mistaken with pedetrian sign.
+The third image could be difficult as the speed limit value may be mistaken to be for example 80 instead of 60.
+The forth image is important to be able to model correctly as any mistake there could be fatal.
+For the fifth image, I included the keep right signal so I was able to check how well I can identify a sign with different color.
+In the sixth I added an extra speed limit, just to test and make sure it is working properly.
+The seventh image is rotated and with a warped perspective, to test if it can identify the bumpy sign.
+The eight image is not centered, so it can test how dependent we are on the poistion in the frame of the image.
+The ninth image has an odd shape, it can help verify it can be modeled correctly.
+Finally the tenth image is an end of speed limit sign, and it can be important to test as it can be easliy mistaken with the regular speed limit as I am not modeling color.
+
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 15th cell of the Ipython notebook, after pre-processing those images, in the 14th cell.
 
-
-
-The model was able to correctly guess 7 of the 10 traffic signs, which gives an accuracy of 70worsly%. This compares worsly to the accuracy on the test set of and can be attributed to the lower resolution.
+The model was able to correctly guess 8 of the 10 traffic signs, which gives an accuracy of 70%. This compares worsly to the accuracy on the test set of and can be attributed to the lower resolution and tougher conditions of those images. I was not able to get the confusion matrix to work, so I did not include it here in this project.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 16th cell of the Ipython notebook. One strange thing was that when using the tf.nn.topk function, the probabilities in some cases were negative. I do not know who to interpret those values, and seems to me to be a bug in the code (possibly showing log probabilities instead of normal probabilities).
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For image # 0  the probabilities are: [ 2.07884288 -0.16386248 -0.62646115 -0.7071318  -1.0704248 ] 
+The predicted classes are: [31 29 21 19 24]
+Correct image class is 31 
+For the first image, the model is relatively sure that this is a wild animal crossing sign (probability of 0.6), and the image does contain a wild animal crossing sign. 
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+For image # 1  the probabilities are: [ 5.0833869   4.3392005   0.55214262 -1.04820895 -2.07790256] 
+The predicted classes are: [28 20 23 30 29]
+Correct image class is 28 
+In this case, the net is stuck between Children crossing and dangerous curve to the right, but decides on children crossing due to a slightly higher probability. This is a correct assumption.
+
+For image # 2  the probabilities are: [ 4.23281097  3.20108318  0.19630058 -3.16723418 -5.30401516] 
+The predicted classes are: [ 3  2  5  1 35]
+Correct image class is 3 
+
+For image # 3  the probabilities are: [ 6.43392467  0.43159521 -0.24420704 -0.4323692  -1.67809463] 
+The predicted classes are: [14 17 38 12 34]
+Correct image class is 14 
+
+For image # 4  the probabilities are: [ 41.08266449 -11.84928799 -15.97552204 -19.13044357 -23.21456718] 
+The predicted classes are: [38 13 12 36 34]
+Correct image class is 38 
+
+For image # 5  the probabilities are: [ 6.55403566  0.39425874 -1.39103603 -1.86439836 -3.24053979] 
+The predicted classes are: [1 0 4 2 5]
+Correct image class is 1 
+
+For image # 6  the probabilities are: [ 3.30749798  1.47141385 -0.79911005 -1.78733933 -3.9998672 ] 
+The predicted classes are: [23 19 29 28 34]
+Correct image class is 22 
+
+For image # 7  the probabilities are: [-0.15186705 -1.43323231 -1.85358322 -1.85645509 -2.2847805 ] 
+The predicted classes are: [40 18 12 25  1]
+Correct image class is 40 
+
+For image # 8  the probabilities are: [ 10.94242096  -3.36086702  -6.67273712  -7.9168973   -8.54631138] 
+The predicted classes are: [12 40 38  9 13]
+Correct image class is 12 
+
+For image # 9  the probabilities are: [-0.07739921 -1.13991761 -2.25709462 -2.51491737 -2.6392889 ] 
+The predicted classes are: [ 1  6 40 18 36]
+Correct image class is 6 
 
 
 For the second image ... 
