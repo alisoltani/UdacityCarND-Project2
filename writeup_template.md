@@ -156,22 +156,27 @@ In this case, the net is stuck between Children crossing and dangerous curve to 
 For image # 2  the probabilities are: [ 4.23281097  3.20108318  0.19630058 -3.16723418 -5.30401516] 
 The predicted classes are: [ 3  2  5  1 35]
 Correct image class is 3 
+In this image the net is deciding between speed limit 60 and 50, with 60 having a slightly higher probability. This is a correct assumption.
 
 For image # 3  the probabilities are: [ 6.43392467  0.43159521 -0.24420704 -0.4323692  -1.67809463] 
 The predicted classes are: [14 17 38 12 34]
 Correct image class is 14 
+In this image, the net is fairly sure that it is a stop sign, and it is actually a stop sign.
 
 For image # 4  the probabilities are: [ 41.08266449 -11.84928799 -15.97552204 -19.13044357 -23.21456718] 
 The predicted classes are: [38 13 12 36 34]
 Correct image class is 38 
+In this image, the net is very sure it is a keep right sign, and it is a keep right sign.
 
 For image # 5  the probabilities are: [ 6.55403566  0.39425874 -1.39103603 -1.86439836 -3.24053979] 
 The predicted classes are: [1 0 4 2 5]
-Correct image class is 1 
+Correct image class is 1
+In this image, the net is fairly sure that this is a 30 kph speed limit sign, and it is actually such a sign.
 
 For image # 6  the probabilities are: [ 3.30749798  1.47141385 -0.79911005 -1.78733933 -3.9998672 ] 
 The predicted classes are: [23 19 29 28 34]
 Correct image class is 22 
+In this image, the net thinks it is a slippery road sign, and it is not that sure either, but this is a misclassification and it is actually a bumpy road sign. This may be due to the warped perspective of the sign.
 
 For image # 7  the probabilities are: [-0.15186705 -1.43323231 -1.85358322 -1.85645509 -2.2847805 ] 
 The predicted classes are: [40 18 12 25  1]
@@ -180,10 +185,14 @@ Correct image class is 40
 For image # 8  the probabilities are: [ 10.94242096  -3.36086702  -6.67273712  -7.9168973   -8.54631138] 
 The predicted classes are: [12 40 38  9 13]
 Correct image class is 12 
+The net is fairly certain that this is a mandatory roundabout sign, and it is actually such a sign.
 
 For image # 9  the probabilities are: [-0.07739921 -1.13991761 -2.25709462 -2.51491737 -2.6392889 ] 
 The predicted classes are: [ 1  6 40 18 36]
 Correct image class is 6 
+In this image, the net is unsure if it is a speed limit of 30 kph sign or end of 80kph sign. It chooses the 30 kph sign, which is wrong as it is an end of 80 kph sign. In this case color may have helped, as there is no red in this sign.
 
+There is also a bar diagram in the .ipynb file that shows the information above.
 
-For the second image ... 
+I tried to visualize the network states, but I was not able to get the outputFeatureMap to work, and when I tried using conv1 or finding the correct tensor, it came up empty. I was not able to test this feature.
+
