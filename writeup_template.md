@@ -103,9 +103,9 @@ Finally I also added a dynamic rate, such that for every 5 epochs the rate would
 The code for calculating the accuracy of the model is located in the tenth and eleventh cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of 98.6%
-* validation set accuracy of 93.6% 
-* test set accuracy of 93.0%
+* training set accuracy of 98.5%
+* validation set accuracy of 94.9% 
+* test set accuracy of 93.5%
 
 In different tests the validation and test accuracies were between 93-95% and 92.8 and 94% respectivly. The results here are from the last test iteration that was uploaded to git, but previous versions had slightly higher accuracy.
 
@@ -142,55 +142,60 @@ The model was able to correctly guess 8 of the 10 traffic signs, which gives an 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 16th cell of the Ipython notebook. One strange thing was that when using the tf.nn.topk function, the probabilities in some cases were negative. I do not know who to interpret those values, and seems to me to be a bug in the code (possibly showing log probabilities instead of normal probabilities).
+    
+For image # 0  the probabilities are: [ 0.31233418  0.29712591  0.17957735  0.11697464  0.03608645] 
+The predicted classes are: [31 37 18 29 27]
+Correct image class is 31  
+For the first image, the model is not completly sure that this is a wild animal crossing sign (probability of 0.31) and it could have been go straight or left too (0.29), but it identifies correctly and the image does contain a wild animal crossing sign. 
 
-For image # 0  the probabilities are: [ 2.07884288 -0.16386248 -0.62646115 -0.7071318  -1.0704248 ] 
-The predicted classes are: [31 29 21 19 24]
-Correct image class is 31 
-For the first image, the model is relatively sure that this is a wild animal crossing sign (probability of 0.6), and the image does contain a wild animal crossing sign. 
-
-For image # 1  the probabilities are: [ 5.0833869   4.3392005   0.55214262 -1.04820895 -2.07790256] 
-The predicted classes are: [28 20 23 30 29]
+For image # 1  the probabilities are: [  9.85614359e-01   1.02695674e-02   3.47353192e-03   3.06325790e-04
+   2.96291866e-04] 
+The predicted classes are: [28 30 23 29 20]
 Correct image class is 28 
-In this case, the net is stuck between Children crossing and dangerous curve to the right, but decides on children crossing due to a slightly higher probability. This is a correct assumption.
+In this case, the net is sure that it is a Children crossing sign. This is a correct assumption.
 
-For image # 2  the probabilities are: [ 4.23281097  3.20108318  0.19630058 -3.16723418 -5.30401516] 
-The predicted classes are: [ 3  2  5  1 35]
+For image # 2  the probabilities are: [ 0.33193883  0.1118614   0.10254004  0.08789943  0.06569019] 
+The predicted classes are: [ 5  3  8 10  7]
 Correct image class is 3 
-In this image the net is deciding between speed limit 60 and 50, with 60 having a slightly higher probability. This is a correct assumption.
+In this image the net is deciding between speed limit 60 and 80, with 80 having higher probability. This is not correct, and it was in fact 60.
 
-For image # 3  the probabilities are: [ 6.43392467  0.43159521 -0.24420704 -0.4323692  -1.67809463] 
-The predicted classes are: [14 17 38 12 34]
+For image # 3  the probabilities are: [ 0.94053763  0.01564077  0.01202679  0.00931493  0.00750925] 
+The predicted classes are: [14 38 12  1  2]
 Correct image class is 14 
 In this image, the net is fairly sure that it is a stop sign, and it is actually a stop sign.
 
-For image # 4  the probabilities are: [ 41.08266449 -11.84928799 -15.97552204 -19.13044357 -23.21456718] 
-The predicted classes are: [38 13 12 36 34]
+For image # 4  the probabilities are: [  1.00000000e+00   6.45131196e-17   2.03265790e-20   1.44491554e-20
+   5.33868520e-24] 
+The predicted classes are: [38 34 36 25 12]
 Correct image class is 38 
-In this image, the net is very sure it is a keep right sign, and it is a keep right sign.
+In this image, the net is completly sure it is a keep right sign, and it is a keep right sign.
 
-For image # 5  the probabilities are: [ 6.55403566  0.39425874 -1.39103603 -1.86439836 -3.24053979] 
-The predicted classes are: [1 0 4 2 5]
+For image # 5  the probabilities are: [  9.88067746e-01   1.17382053e-02   1.61507633e-04   1.19632887e-05
+   8.95661196e-06] 
+The predicted classes are: [ 1  2  0 38  4]
 Correct image class is 1
 In this image, the net is fairly sure that this is a 30 kph speed limit sign, and it is actually such a sign.
 
-For image # 6  the probabilities are: [ 3.30749798  1.47141385 -0.79911005 -1.78733933 -3.9998672 ] 
-The predicted classes are: [23 19 29 28 34]
+For image # 6  the probabilities are: [ 0.34016445  0.27455905  0.08902305  0.07912602  0.05654135] 
+The predicted classes are: [30 23 28 29 11]
 Correct image class is 22 
-In this image, the net thinks it is a slippery road sign, and it is not that sure either, but this is a misclassification and it is actually a bumpy road sign. This may be due to the warped perspective of the sign.
+In this image, the net thinks it is a beware of ice road sign, and it is not that sure either, but this is a misclassification and it is actually a bumpy road sign. This may be due to the warped perspective of the sign.
 
-For image # 7  the probabilities are: [-0.15186705 -1.43323231 -1.85358322 -1.85645509 -2.2847805 ] 
-The predicted classes are: [40 18 12 25  1]
-Correct image class is 40 
+For image # 7  the probabilities are: [ 0.27939001  0.25583929  0.07711475  0.07691791  0.03349042] 
+The predicted classes are: [40 12 25  1 18]
+Correct image class is 40
+It is unsure between a mandatory roundabout sign and priority road, but with a slightly hire probability for mandatory roundabout, which is correct.
 
-For image # 8  the probabilities are: [ 10.94242096  -3.36086702  -6.67273712  -7.9168973   -8.54631138] 
-The predicted classes are: [12 40 38  9 13]
+For image # 8  the probabilities are: [  9.99998450e-01   1.59418732e-06   1.97885068e-08   8.82244588e-09
+   7.82793474e-09] 
+The predicted classes are: [12 40  1 13 15]
 Correct image class is 12 
-The net is fairly certain that this is a mandatory roundabout sign, and it is actually such a sign.
+The net is fairly certain that this is a priority road sign, and it is actually such a sign.
 
-For image # 9  the probabilities are: [-0.07739921 -1.13991761 -2.25709462 -2.51491737 -2.6392889 ] 
-The predicted classes are: [ 1  6 40 18 36]
+For image # 9  the probabilities are: [ 0.22751142  0.14604031  0.10345463  0.10064253  0.05660363] 
+The predicted classes are: [ 1  2  5  8 40]
 Correct image class is 6 
-In this image, the net is unsure if it is a speed limit of 30 kph sign or end of 80kph sign. It chooses the 30 kph sign, which is wrong as it is an end of 80 kph sign. In this case color may have helped, as there is no red in this sign.
+In this image, the net is unsure what type of sign it is, and choses a 30kmph sign, which is wrong as it is an end of 80 kph sign. In this case color may have helped, as there is no red in this sign.
 
 There is also a bar diagram in the .ipynb file that shows the information above.
 
