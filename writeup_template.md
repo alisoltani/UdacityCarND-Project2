@@ -137,7 +137,7 @@ Finally the tenth image is an end of speed limit sign, and it can be important t
 
 The code for making predictions on my final model is located in the 15th cell of the Ipython notebook, after pre-processing those images, in the 14th cell.
 
-The model was able to correctly guess 8 of the 10 traffic signs, which gives an accuracy of 70%. This compares worsly to the accuracy on the test set of and can be attributed to the lower resolution and tougher conditions of those images. I was not able to get the confusion matrix to work, so I did not include it here in this project.
+The model was able to correctly guess 7 of the 10 traffic signs, which gives an accuracy of 70%. This compares worsly to the accuracy on the test set of and can be attributed to the lower resolution and tougher conditions of those images. I was not able to get the confusion matrix to work, so I did not include it here in this project.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
